@@ -64,8 +64,7 @@ const game = function () {
     // play a round of the game and get winner and message
     const computerSelection = getComputerChoice(gameChoices);
     const gameInfo = playRound(playerSelection, computerSelection);
-    const message = gameInfo[0];
-    const winner = gameInfo[1];
+    const [message, winner] = gameInfo;
 
     console.log(message);
 
