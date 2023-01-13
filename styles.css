@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+
+:root {
+  box-sizing: border-box;
+  font-size: 1.2em;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  line-height: 1.45;
+  font-family: "Press Start 2P", sans-serif;
+  color: #eee;
+  background-color: #222;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+p {
+  margin: 0;
+}
+
+header p {
+  text-align: center;
+}
+
+.container {
+  width: min(92%, 1200px);
+  margin: 0 auto;
+}
+
+.game {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.game__players {
+  margin: 2.2em 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 0.4em;
+}
+
+.game__winner {
+  position: absolute;
+  bottom: 2.6em;
+  font-size: 1.8rem;
+  display: none;
+}
+
+.player {
+  border: 1px solid #eee;
+  padding: 0 1.2em;
+}
+
+.player h2,
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.player p {
+  padding: 1.6em 0;
+}
+
+.player .score {
+  color: red;
+  font-size: 0.8rem;
+  display: block;
+}
+
+.player--you {
+  grid-column: 1 / span 1;
+}
+
+.versus-sign {
+  grid-column: 2 / span 1;
+  justify-self: center;
+  align-self: center;
+  font-size: 2rem;
+  color: red;
+}
+
+.player--computer {
+  grid-column: -2 / -1;
+}
+
+.player > * {
+  text-align: center;
+}
+
+.btn-wrapper {
+  margin-top: 1.8em;
+}
+
+.btn {
+  display: block;
+  border: none;
+  background-color: #eee;
+  color: #222;
+  font-size: 1.1rem;
+  font-family: inherit;
+  padding: 0.8em 1.3em;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+.game__message {
+  color: #60b347;
+}
+
+.hidden {
+  visibility: hidden;
+}
