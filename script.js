@@ -1,6 +1,29 @@
 "use strict";
 
+// working elements
+const userChoice = document.querySelector(".your-choice");
+const computerChoice = document.querySelector(".computer-choice");
+const userScore = document.querySelector(".your--score");
+const computerScore = document.querySelector(".computer--score");
+const gameMessage = document.querySelector(".game__message");
+const btns = document.querySelectorAll(".btn");
+const btnWrapper = document.querySelector(".btn-wrapper");
+const winnerMessageElem = document.querySelector(".game__winner");
+
+// state variables
 const gameChoices = ["rock", "paper", "scissors"];
+let playerWin = 0,
+  computerWin = 0;
+
+// initial game state
+const init = function () {
+  userChoice.classList.add("hidden");
+  computerChoice.classList.add("hidden");
+  gameMessage.classList.add("hidden");
+};
+
+// call initial function
+init();
 
 // capitalize the first letter of a word
 const capitalizeWord = function (word) {
@@ -49,41 +72,76 @@ const playRound = function (playerSelection, computerSelection) {
   return [message, winner];
 };
 
-// play game and get winner after 5 rounds
-const game = function () {
-  // variables to track down number of wins
-  let playerWin = 0,
-    computerWin = 0;
+// Get the winner of each round of the game
+const getRoundWinner = function (info) {
+  const [message, winner] = info;
 
-  // play 5 rounds of the game
-  for (let i = 0; i < 5; i++) {
-    const playerSelection = prompt(
-      "Enter your choice (Rock, Paper or Scissors)"
-    );
+  gameMessage.classList.remove("hidden");
+  gameMessage.textContent = message;
 
-    // play a round of the game and get winner and message
-    const computerSelection = getComputerChoice(gameChoices);
-    const gameInfo = playRound(playerSelection, computerSelection);
-    const [message, winner] = gameInfo;
-
-    console.log(message);
-
-    // increment winners variables
-    if (winner === "player") {
-      playerWin++;
-    } else if (winner === "computer") {
-      computerWin++;
-    }
-  }
-
-  // determine the winner of the game
-  if (computerWin === playerWin) {
-    console.log("No Winner - It's a tie!");
-  } else if (playerWin > computerWin) {
-    console.log("Game Winner - You");
-  } else {
-    console.log("Game Winner - Computer");
+  // increment winners variables
+  if (winner === "player") {
+    playerWin++;
+    userScore.textContent = playerWin;
+  } else if (winner === "computer") {
+    computerWin++;
+    computerScore.textContent = computerWin;
   }
 };
 
-game();
+// determine the winner of the game
+const getGameWinner = function () {
+  let winnerMessage;
+
+  if (computerWin === playerWin) {
+    winnerMessage = "No Winner - It's a tie!";
+  } else if (playerWin > computerWin) {
+    winnerMessage = "Game Winner - You!";
+  } else {
+    winnerMessage = "Game Winner - Computer!";
+  }
+
+  // Display and hide info
+  winnerMessageElem.style.display = "block";
+  winnerMessageElem.textContent = winnerMessage;
+  btnWrapper.classList.add("hidden");
+};
+
+// play game and get winner
+// the winner is the first player to win five rounds
+const game = function (btn) {
+  if (playerWin <= 5 && computerWin <= 5) {
+    // get user choice and computer choice
+    const computerSelection = getComputerChoice(gameChoices);
+    const playerSelection = btn.textContent;
+
+    // Display info
+    userChoice.classList.remove("hidden");
+    userChoice.textContent = playerSelection;
+    computerChoice.classList.remove("hidden");
+    computerChoice.textContent = capitalizeWord(computerSelection);
+
+    // play a round of the game and get winner and message
+    const gameInfo = playRound(playerSelection, computerSelection);
+    getRoundWinner(gameInfo);
+
+    // check if there is a winner
+    if (playerWin === 5) {
+      getGameWinner();
+    } else if (computerWin === 5) {
+      getGameWinner();
+    }
+  }
+};
+
+// play the game when you click any of the buttons
+const playGame = function () {
+  for (let i = 0; i < btns.length; i++) {
+    const btn = btns[i];
+    btn.addEventListener("click", function () {
+      game(btn);
+    });
+  }
+};
+
+playGame();
