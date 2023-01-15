@@ -123,6 +123,14 @@ header p {
   transform: translateY(2px);
 }
 
+.btn--reset {
+  font-size: 0.8rem;
+  padding: 0.5em 1em;
+  position: absolute;
+  right: 0;
+  top: 5em;
+}
+
 .game__message {
   color: #60b347;
 }

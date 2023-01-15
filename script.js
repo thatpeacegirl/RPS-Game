@@ -6,20 +6,29 @@ const computerChoice = document.querySelector(".computer-choice");
 const userScore = document.querySelector(".your--score");
 const computerScore = document.querySelector(".computer--score");
 const gameMessage = document.querySelector(".game__message");
-const btns = document.querySelectorAll(".btn");
+const playBtns = document.querySelectorAll(".btn--play");
+const resetBtn = document.querySelector(".btn--reset");
 const btnWrapper = document.querySelector(".btn-wrapper");
 const winnerMessageElem = document.querySelector(".game__winner");
 
 // state variables
 const gameChoices = ["rock", "paper", "scissors"];
-let playerWin = 0,
-  computerWin = 0;
+let playerWin, computerWin;
 
 // initial game state
 const init = function () {
   userChoice.classList.add("hidden");
   computerChoice.classList.add("hidden");
   gameMessage.classList.add("hidden");
+
+  playerWin = 0;
+  computerWin = 0;
+
+  // change display info
+  userScore.textContent = playerWin;
+  computerScore.textContent = computerWin;
+  winnerMessageElem.style.display = "none";
+  btnWrapper.classList.remove("hidden");
 };
 
 // call initial function
@@ -136,8 +145,8 @@ const game = function (btn) {
 
 // play the game when you click any of the buttons
 const playGame = function () {
-  for (let i = 0; i < btns.length; i++) {
-    const btn = btns[i];
+  for (let i = 0; i < playBtns.length; i++) {
+    const btn = playBtns[i];
     btn.addEventListener("click", function () {
       game(btn);
     });
@@ -145,3 +154,7 @@ const playGame = function () {
 };
 
 playGame();
+
+// reset button
+
+resetBtn.addEventListener("click", init);
